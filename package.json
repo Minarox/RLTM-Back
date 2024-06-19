@@ -1,0 +1,39 @@
+{
+  "name": "rltm",
+  "version": "0.1.0",
+  "description": "Rocket League Tournament Manager",
+  "author": {
+    "name": "Mathis Serrieres Maniecki",
+    "email": "contact@minarox.fr",
+    "url": "https://minarox.fr/"
+  },
+  "bugs": {
+    "url": "https://github.com/Minarox/RLTM/issues",
+    "email": "contact@minarox.fr"
+  },
+  "homepage": "https://github.com/Minarox/RLTM#readme",
+  "readme": "./README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Minarox/RLTM.git"
+  },
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "nodemon index.ts",
+    "migrate": "node_modules/.bin/sequelize db:migrate",
+    "build": "npx tsc",
+    "start": "NODE_ENV=production node dist/index.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "mariadb": "^3.3.1",
+    "sequelize": "^6.37.3",
+    "typescript": "^5.4.5",
+    "uWebSockets.js": "github:uNetworking/uWebSockets.js#v20.43.0",
+    "winston": "^3.13.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.3",
+    "ts-node": "^10.9.2"
+  }
+}
