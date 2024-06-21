@@ -4,21 +4,21 @@ let singleton: any;
 
 /**
  * @description Create singleton instance of Sequelize (= database)
- * @return {any} - Sequelize
+ * @return {Promise<any>} - Sequelize
  */
-function database(): any {
+async function database(): Promise<any> {
   if (singleton) {
     return singleton;
   }
 
   singleton = new Sequelize(
-    process.env['MYSQL_DATABASE'],
-    process.env['MYSQL_USER'],
-    process.env['MYSQL_PASSWORD'],
+    process.env['MYSQL_DATABASE'] || "rltm",
+    process.env['MYSQL_USER'] || "rltm",
+    process.env['MYSQL_PASSWORD'] || "rltm",
     {
-      host: process.env['MYSQL_HOST'],
-      port: Number(process.env['MYSQL_PORT']),
-      dialect: mariadb
+      host: process.env['MYSQL_HOST'] || "mariadb",
+      port: Number(process.env['MYSQL_PORT']) || 3306,
+      dialect: "mariadb"
     }
   );
 

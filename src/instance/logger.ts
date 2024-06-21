@@ -1,4 +1,4 @@
-import winston from "winston";
+import { createLogger, format, transports } from "winston";
 
 let singleton: any;
 
@@ -11,21 +11,20 @@ function logger(): any {
     return singleton;
   }
 
-  singleton = winston.createLogger({
+  singleton = createLogger({
     level: 'info',
-    format: winston.format.json(),
-    defaultMeta: {
-      service: 'user-service'
-    },
+    format: format.json(),
     transports: [
-      new winston.transports.File({ filename: 'error.log', level: 'error' }),
-      new winston.transports.File({ filename: 'combined.log' }),
-    ],
+      new transports.Console(),
+      new transports.File({ filename: 'logs/error.log', level: 'error' }),
+      new transports.File({ filename: 'logs/warning.log', level: 'warning' }),
+      new transports.File({ filename: 'logs/combined.log' })
+    ]
   });
 
   if (process.env['NODE_ENV'] !== 'production') {
-    singleton.add(new winston.transports.Console({
-      format: winston.format.simple(),
+    singleton.add(new transports.Console({
+      format: format.simple(),
     }));
   }
   return singleton;
