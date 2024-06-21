@@ -1,17 +1,17 @@
 import { Sequelize } from "sequelize";
 
-let instance: any;
+let singleton: any;
 
 /**
- * @description Create singleton instance of sequelize
+ * @description Create singleton instance of Sequelize (= database)
  * @return {any} - Sequelize
  */
-function sequelize(): any {
-  if (instance) {
-    return instance;
+function database(): any {
+  if (singleton) {
+    return singleton;
   }
 
-  instance = new Sequelize(
+  singleton = new Sequelize(
     process.env['MYSQL_DATABASE'],
     process.env['MYSQL_USER'],
     process.env['MYSQL_PASSWORD'],
@@ -23,11 +23,11 @@ function sequelize(): any {
   );
 
   try {
-    await instance.authenticate();
-    return instance;
+    await singleton.authenticate();
+    return singleton;
   } catch (error) {
     throw new Error('Unable to connect to the database: ' + error);
   }
 }
 
-export default sequelize();
+export default database();
